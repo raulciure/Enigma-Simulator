@@ -1,10 +1,29 @@
-public class Rotor {
-    private RotorType rotorType;
-    private char position;
+import java.util.List;
+import java.util.Map;
 
-    public Rotor(RotorType rotorType, char position) {
-        this.rotorType = rotorType;
+public class Rotor {
+    private Map<Character, Character> wiring;
+    private List<Character> notches;
+    private Character position;
+
+    public Rotor(Map<Character, Character> wiring, List<Character> notches, char position) {
+        this.wiring = wiring;
+        this.notches = notches;
         this.position = position;
+    }
+
+    public Rotor(Map<Character, Character> wiring, List<Character> notches) {
+        this.wiring = wiring;
+        this.notches = notches;
+        this.position = null;
+    }
+
+    public Map<Character, Character> getWiring() {
+        return this.wiring;
+    }
+
+    public List<Character> getNotches() {
+        return this.notches;
     }
 
     public char getPosition() {
@@ -25,7 +44,7 @@ public class Rotor {
     }
 
     public boolean isAtNotch() {
-        for (Character notch : rotorType.getNotches()) {
+        for (Character notch : this.notches) {
             if (notch == position) {
                 return true;
             }
@@ -34,12 +53,12 @@ public class Rotor {
     }
 
     public char encode(char character) {
-        return rotorType.getWiring().get(character);
+        return this.wiring.get(character);
     }
 
     public char encodeReverse(char character) {
         for(char key = 'A'; key <= 'Z'; key++) {
-            if(rotorType.getWiring().get(key) == character) {
+            if(this.wiring.get(key) == character) {
                 return key;
             }
         }
