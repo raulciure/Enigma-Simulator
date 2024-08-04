@@ -1,9 +1,15 @@
+package statics;
+
+import models.Machine;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class UserInteraction {
+public final class UserInteraction {
+    private static String languageOption;
+
     public static void plugboardSelection(String languageOption, Scanner scanner, List<String> plugboardMap) {
         if (languageOption.equals("1")) { // English
             System.out.println("Please enter pair of letters to connect to plugboard (eg. AB) one per line (maximum 12).");
@@ -19,7 +25,7 @@ public class UserInteraction {
                 }
 
                 if(Utilitaries.listContainsStringContent(plugboardMap, input)) {
-                    System.out.println("Letter(s) socket already used!\n");
+                    System.out.println("Letter(s) socket already used!");
                 }
                 else {
                     plugboardMap.add(input);
@@ -46,7 +52,7 @@ public class UserInteraction {
                 }
 
                 if(Utilitaries.listContainsStringContent(plugboardMap, input)) {
-                    System.out.println("Buchstab(en) Sockel bereits belegt!\n");
+                    System.out.println("Buchstab(en) Sockel bereits belegt!");
                 }
                 else {
                     plugboardMap.add(input);
@@ -64,7 +70,7 @@ public class UserInteraction {
         if(languageOption.equals("1")) { // English
             if (rotorNumber >= 1 && rotorNumber <= 3) { // Normal rotors
                 while (true) {
-                    System.out.println("Rotor " + rotorNumber + "(from right):");
+                    System.out.println("models.Rotor " + rotorNumber + "(from right):");
                     System.out.println("\tAvailable rotors:");
                     System.out.println("\t" + availableRotors);
                     System.out.println("\t" + "Selection:");
@@ -93,7 +99,7 @@ public class UserInteraction {
                         break;
                     }
                     else {
-                        System.out.println("\tRotor not available or non-existent!");
+                        System.out.println("\tmodels.Rotor not available or non-existent!");
                     }
 
                     System.out.println();
@@ -130,7 +136,7 @@ public class UserInteraction {
                         break;
                     }
                     else {
-                        System.out.println("\tRotor not available or non-existent!");
+                        System.out.println("\tmodels.Rotor not available or non-existent!");
                     }
 
                     System.out.println();
@@ -162,7 +168,7 @@ public class UserInteraction {
         else if(languageOption.equals("2")) { // German
             if (rotorNumber >= 1 && rotorNumber <= 3) { // Normal rotors
                 while (true) {
-                    System.out.println("Rotor " + rotorNumber + "(von rechts):");
+                    System.out.println("models.Rotor " + rotorNumber + "(von rechts):");
                     System.out.println("\tVerfügbare Rotoren:");
                     System.out.println("\t" + availableRotors);
                     System.out.println("\tSelektion:");
@@ -191,7 +197,7 @@ public class UserInteraction {
                         break;
                     }
                     else {
-                        System.out.println("\tRotor nicht vorhanden oder nicht lieferbar!");
+                        System.out.println("\tmodels.Rotor nicht vorhanden oder nicht lieferbar!");
                     }
 
                     System.out.println();
@@ -227,7 +233,7 @@ public class UserInteraction {
                         break;
                     }
                     else {
-                        System.out.println("\tRotor nicht vorhanden oder nicht lieferbar!");
+                        System.out.println("\tmodels.Rotor nicht vorhanden oder nicht lieferbar!");
                     }
 
                     System.out.println();
@@ -278,9 +284,9 @@ public class UserInteraction {
                 "+=======================================================================================+");
         System.out.println("\n\n");
 
-        // Select language
         Scanner scanner = new Scanner(System.in);
-        String languageOption;
+
+        // Select language
         while(true) {
             System.out.println("Select language | Sprache auswählen");
             System.out.println("[1] English");
@@ -288,16 +294,16 @@ public class UserInteraction {
 
             System.out.print("> ");
 
-            languageOption = scanner.nextLine();
+            UserInteraction.languageOption = scanner.nextLine();
 
             // English menu
-            if (languageOption.equals("1")) {
+            if (UserInteraction.languageOption.equals("1")) {
                 // Select operation mode
                 System.out.println("Select operation mode");
                 break;
             }
             // German menu
-            else if (languageOption.equals("2")) {
+            else if (UserInteraction.languageOption.equals("2")) {
                 // Select operation mode
                 System.out.println("Betriebsart wählen");
                 break;
@@ -307,18 +313,60 @@ public class UserInteraction {
             }
         }
 
-        // Rotor 1
-        rotorSelection(languageOption, scanner, availableNormalRotors, rotor1Type, rotorsPositions,1);
-        // Rotor 2
-        rotorSelection(languageOption, scanner, availableNormalRotors, rotor2Type, rotorsPositions,2);
-        // Rotor 3
-        rotorSelection(languageOption, scanner, availableNormalRotors, rotor3Type, rotorsPositions,3);
+        // models.Rotor 1
+        rotorSelection(UserInteraction.languageOption, scanner, availableNormalRotors, rotor1Type, rotorsPositions,1);
+        // models.Rotor 2
+        rotorSelection(UserInteraction.languageOption, scanner, availableNormalRotors, rotor2Type, rotorsPositions,2);
+        // models.Rotor 3
+        rotorSelection(UserInteraction.languageOption, scanner, availableNormalRotors, rotor3Type, rotorsPositions,3);
         // Extra rotor
-        rotorSelection(languageOption, scanner, availableExtraRotors, extraRotorType, rotorsPositions,4);
+        rotorSelection(UserInteraction.languageOption, scanner, availableExtraRotors, extraRotorType, rotorsPositions,4);
         // Reflector
-        rotorSelection(languageOption, scanner, availableReflectors, reflectorType, null,5);
-        // Plugboard
-        plugboardSelection(languageOption, scanner, plugboardStringMap);
+        rotorSelection(UserInteraction.languageOption, scanner, availableReflectors, reflectorType, null,5);
+        // models.Plugboard
+        plugboardSelection(UserInteraction.languageOption, scanner, plugboardStringMap);
+
+        // scanner.close();
+    }
+
+    public static void displayEncoding(Machine machine) {
+        System.out.println("----------------------------------------------------");
+
+        Scanner scanner = new Scanner(System.in);
+        String input;
+
+        if(UserInteraction.languageOption.equals("1")) { // English
+            while(true) {
+                System.out.println("Type message to be encoded followed by Enter!");
+                System.out.println("To exit program, type '0'.");
+                System.out.print("> ");
+
+                input = scanner.nextLine();
+
+                if (input.equals("0")) {
+                    break;
+                }
+
+                String output = machine.encode(input);
+                System.out.println("\t[Output]: " + output);
+            }
+        }
+        else if(UserInteraction.languageOption.equals("2")) { // German
+            while(true) {
+                System.out.println("Geben Sie die zu verschlüsselnde Nachricht ein, und drücken Sie anschließend die Eingabetaste!");
+                System.out.println("Um das Programm zu beenden, geben Sie „0“ ein.");
+                System.out.print("> ");
+
+                input = scanner.nextLine();
+
+                if (input.equals("0")) {
+                    break;
+                }
+
+                String output = machine.encode(input);
+                System.out.println("\t[Ausgabe]: " + output);
+            }
+        }
 
         scanner.close();
     }

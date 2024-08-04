@@ -1,8 +1,16 @@
+package models;
+
+import java.util.HashMap;
 import java.util.Map;
 
 public class Plugboard {
     private int wireCount;
     private Map<Character, Character> wiring;
+
+    public Plugboard() {
+        wireCount = 0;
+        wiring = null;
+    }
 
     public Plugboard(int wireCount, Map<Character, Character> wiring) {
         this.wireCount = wireCount;
@@ -27,22 +35,19 @@ public class Plugboard {
 
     public char encode(char character) {
         try {
-            char result = this.getWiring().get(character);
-
             return this.getWiring().get(character);
         }
         catch (NullPointerException e) {
+            if(this.getWiring() != null) {
+                for (char key = 'A'; key <= 'Z'; key++) {
+                    Character value = this.getWiring().get(key);
+                    if (value != null && value == character) {
+                        return key;
+                    }
+                }
+            }
             // character is not in map => not plugboard scrambling for it used - return same character
             return character;
         }
-    }
-
-    public char encodeReverse(char character) {
-        for(char key = 'A'; key <= 'Z'; key++) {
-            if(this.getWiring().get(key) == character) {
-                return key;
-            }
-        }
-        return character; // If returned => no wires used for that character
     }
 }

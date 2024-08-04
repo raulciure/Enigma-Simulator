@@ -1,11 +1,11 @@
-import com.sun.nio.sctp.AbstractNotificationHandler;
+package statics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-public class Utilitaries {
+public final class Utilitaries {
     public static Map<Character, Character> createHashMap(String keys, String values) {
         Map<Character, Character> map = new HashMap<>();
         for(int i = 0; i < keys.length(); i++) {
