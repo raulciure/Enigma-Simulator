@@ -56,12 +56,12 @@ public class MachineTests {
         Plugboard plugboard = new Plugboard(plugboardMap.size(), plugboardMap);
 
         // Set rotors
-        Rotor entryWheel = Init.configureRotor("EKW", null);
-        Rotor rotor1 = Init.configureRotor("I", 'A');
-        Rotor rotor2 = Init.configureRotor("III", 'L');
-        Rotor rotor3 = Init.configureRotor("VII", 'Q');
-        Rotor extraRotor = Init.configureRotor("beta", 'A');
-        Rotor reflector = Init.configureRotor("b", null);
+        Rotor entryWheel = Init.configureRotor("EKW", null, null);
+        Rotor rotor1 = Init.configureRotor("I", 'A', 'A');
+        Rotor rotor2 = Init.configureRotor("III", 'L', 'A');
+        Rotor rotor3 = Init.configureRotor("VII", 'Q', 'A');
+        Rotor extraRotor = Init.configureRotor("beta", 'A', 'A');
+        Rotor reflector = Init.configureRotor("b", null, null);
 
         // Set machine
         Machine machine = new Machine(plugboard, entryWheel, rotor1, rotor2, rotor3, extraRotor, reflector);
@@ -81,12 +81,12 @@ public class MachineTests {
         Plugboard plugboard = new Plugboard();
 
         // Set rotors
-        Rotor entryWheel = Init.configureRotor("EKW", null);
-        Rotor rotor1 = Init.configureRotor("I", 'O');
-        Rotor rotor2 = Init.configureRotor("III", 'H');
-        Rotor rotor3 = Init.configureRotor("VII", 'G');
-        Rotor extraRotor = Init.configureRotor("beta", 'B');
-        Rotor reflector = Init.configureRotor("b", null);
+        Rotor entryWheel = Init.configureRotor("EKW", null, null);
+        Rotor rotor1 = Init.configureRotor("I", 'O', 'A');
+        Rotor rotor2 = Init.configureRotor("III", 'H', 'A');
+        Rotor rotor3 = Init.configureRotor("VII", 'G', 'A');
+        Rotor extraRotor = Init.configureRotor("beta", 'B', 'A');
+        Rotor reflector = Init.configureRotor("b", null, null);
 
         // Set machine
         Machine machine = new Machine(plugboard, entryWheel, rotor1, rotor2, rotor3, extraRotor, reflector);
@@ -117,18 +117,54 @@ public class MachineTests {
         Plugboard plugboard = new Plugboard(plugboardMap.size(), plugboardMap);
 
         // Set rotors
-        Rotor entryWheel = Init.configureRotor("EKW", null);
-        Rotor rotor1 = Init.configureRotor("VIII", 'F');
-        Rotor rotor2 = Init.configureRotor("V", 'I');
-        Rotor rotor3 = Init.configureRotor("VII", 'Q');
-        Rotor extraRotor = Init.configureRotor("gamma", 'M');
-        Rotor reflector = Init.configureRotor("c", null);
+        Rotor entryWheel = Init.configureRotor("EKW", null, null);
+        Rotor rotor1 = Init.configureRotor("VIII", 'F', 'A');
+        Rotor rotor2 = Init.configureRotor("V", 'I', 'A');
+        Rotor rotor3 = Init.configureRotor("VII", 'Q', 'A');
+        Rotor extraRotor = Init.configureRotor("gamma", 'M', 'A');
+        Rotor reflector = Init.configureRotor("c", null, null);
 
         // Set machine
         Machine machine = new Machine(plugboard, entryWheel, rotor1, rotor2, rotor3, extraRotor, reflector);
 
         String encodingString = "HEILHITLER";
         String expectedOutput = "LJZEUBZCBY";
+
+        String output = machine.encode(encodingString);
+
+        assertEquals(expectedOutput, output);
+    }
+
+    // Test for normal operation encoding using ring settings
+    @Test
+    public void encodingTestRings() {
+        // Set plugboard map
+        Map<Character, Character> plugboardMap = new HashMap<Character, Character>();
+        plugboardMap.put('A', 'Z');
+        plugboardMap.put('P', 'O');
+        plugboardMap.put('T', 'Y');
+        plugboardMap.put('E', 'W');
+        plugboardMap.put('U', 'I');
+        plugboardMap.put('L', 'K');
+        plugboardMap.put('B', 'H');
+        plugboardMap.put('N', 'M');
+
+        // Set plugboard object
+        Plugboard plugboard = new Plugboard(plugboardMap.size(), plugboardMap);
+
+        // Set rotors
+        Rotor entryWheel = Init.configureRotor("EKW", null, null);
+        Rotor rotor1 = Init.configureRotor("VIII", 'F', 'J');
+        Rotor rotor2 = Init.configureRotor("V", 'I', 'Z');
+        Rotor rotor3 = Init.configureRotor("VII", 'Q', 'E');
+        Rotor extraRotor = Init.configureRotor("gamma", 'M', 'V');
+        Rotor reflector = Init.configureRotor("c", null, null);
+
+        // Set machine
+        Machine machine = new Machine(plugboard, entryWheel, rotor1, rotor2, rotor3, extraRotor, reflector);
+
+        String encodingString = "HEILHITLER";
+        String expectedOutput = "SVYEMXLULE";
 
         String output = machine.encode(encodingString);
 

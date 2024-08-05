@@ -33,4 +33,18 @@ public final class Utilitaries {
         }
         return false;
     }
+
+    // Recieves a character and an offset and returns the character that "offsets" into the given deviatedCharacter.
+    public static char getRealCharacter(char deviatedCharacter, int offset) {
+        if(deviatedCharacter - offset < 'A') {
+            return (char) (deviatedCharacter - offset + 'Z' - 'A' + 1);
+        }
+        return (char) (deviatedCharacter - offset);
+    }
+
+    public static char getRealCharacter(char deviatedCharacter, char charOffset) {
+        int offset = charOffset - 'A';
+
+        return getRealCharacter(deviatedCharacter, offset);
+    }
 }

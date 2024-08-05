@@ -1,6 +1,5 @@
 package models;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Plugboard {
@@ -34,10 +33,10 @@ public class Plugboard {
     }
 
     public char encode(char character) {
-        try {
+        try { // Search for forward mapping
             return this.getWiring().get(character);
         }
-        catch (NullPointerException e) {
+        catch (NullPointerException e) { // Search for backwards mapping
             if(this.getWiring() != null) {
                 for (char key = 'A'; key <= 'Z'; key++) {
                     Character value = this.getWiring().get(key);

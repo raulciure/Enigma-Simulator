@@ -1,9 +1,6 @@
 package statics;
 
-import models.Machine;
-import models.Plugboard;
-import models.Rotor;
-import models.RotorType;
+import models.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -111,9 +108,9 @@ public final class Init {
         return null;
     }*/
 
-    public static Rotor configureRotor(String rotorID, Character position) {
+    public static Rotor configureRotor(String rotorID, Character position, Character ringSetting) {
         if(position != null)
-            return new Rotor(new RotorType().setRotorTypeByID(rotorID), position);
+            return new Rotor(new RotorType().setRotorTypeByID(rotorID), position, ringSetting);
         return new Rotor(new RotorType().setRotorTypeByID(rotorID));
     }
 
@@ -126,17 +123,18 @@ public final class Init {
         StringBuilder extraRotorType = new StringBuilder();
         StringBuilder reflectorType = new StringBuilder();
         List<Character> rotorsPositions = new ArrayList<>();
+        List<Character> ringsPositions = new ArrayList<>();
 
-        UserInteraction.displayMenu(plugboardStringMap, rotor1Type, rotor2Type, rotor3Type, extraRotorType, reflectorType, rotorsPositions);
+        UserInteraction.displayMenu(plugboardStringMap, rotor1Type, rotor2Type, rotor3Type, extraRotorType, reflectorType, rotorsPositions, ringsPositions);
 
         Plugboard plugboard = configurePlugboard(plugboardStringMap);
-        Rotor entryRotor = configureRotor("EKW", null);
-        Rotor rotor1 = configureRotor(rotor1Type.toString(), rotorsPositions.get(0)); // rotorNumber - 1
-        Rotor rotor2 = configureRotor(rotor2Type.toString(), rotorsPositions.get(1));
-        Rotor rotor3 = configureRotor(rotor3Type.toString(), rotorsPositions.get(2));
-        Rotor extraRotor = configureRotor(extraRotorType.toString(), rotorsPositions.get(3));
-        Rotor reflector = configureRotor(reflectorType.toString(), null);
+        Rotor entryWheel = configureRotor("EKW", null, null);
+        Rotor rotor1 = configureRotor(rotor1Type.toString(), rotorsPositions.get(0), ringsPositions.get(0)); // rotorNumber - 1
+        Rotor rotor2 = configureRotor(rotor2Type.toString(), rotorsPositions.get(1), ringsPositions.get(1));
+        Rotor rotor3 = configureRotor(rotor3Type.toString(), rotorsPositions.get(2), ringsPositions.get(2));
+        Rotor extraRotor = configureRotor(extraRotorType.toString(), rotorsPositions.get(3), ringsPositions.get(3));
+        Rotor reflector = configureRotor(reflectorType.toString(), null, null);
 
-        return new Machine(plugboard, entryRotor, rotor1, rotor2, rotor3, extraRotor, reflector);
+        return new Machine(plugboard, entryWheel, rotor1, rotor2, rotor3, extraRotor, reflector);
     }
 }

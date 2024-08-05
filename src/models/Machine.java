@@ -2,17 +2,17 @@ package models;
 
 public class Machine {
     private Plugboard plugboard;
-    private Rotor entryRotor;
+    private Rotor entryWheel;
     private Rotor rotor1;
     private Rotor rotor2;
     private Rotor rotor3;
     private Rotor extraRotor;
     private Rotor reflector;
 
-    public Machine(Plugboard plugboard, Rotor entryRotor, Rotor rotor1, Rotor rotor2,
+    public Machine(Plugboard plugboard, Rotor entryWheel, Rotor rotor1, Rotor rotor2,
                    Rotor rotor3, Rotor extraRotor, Rotor reflector) {
         this.plugboard = plugboard;
-        this.entryRotor = entryRotor;
+        this.entryWheel = entryWheel;
         this.rotor1 = rotor1;
         this.rotor2 = rotor2;
         this.rotor3 = rotor3;
@@ -24,8 +24,8 @@ public class Machine {
         this.plugboard = plugboard;
     }
 
-    public void setEntryRotor(Rotor entryRotor) {
-        this.entryRotor = entryRotor;
+    public void setEntryWheel(Rotor entryWheel) {
+        this.entryWheel = entryWheel;
     }
 
     public void setRotor1(Rotor rotor1) {
@@ -57,46 +57,48 @@ public class Machine {
                 rotor3.step();
         }
 
+        char signal;
+
         // First pass through plugboard
-        char afterPlugboard = plugboard.encode(character);
+        signal = plugboard.encode(character);
 
         // First pass through entry wheel (EKW)
-        char afterEntryRotor = entryRotor.encode(afterPlugboard, entryRotor.getPosition());
+        signal = entryWheel.encode(signal, entryWheel.getPosition(), entryWheel.getRingSetting());
 
         // First pass through first rotor
-        char afterRotor1 = rotor1.encode(afterEntryRotor, entryRotor.getPosition());
+        signal = rotor1.encode(signal, entryWheel.getPosition(), entryWheel.getRingSetting());
 
         // First pass through second rotor
-        char afterRotor2 = rotor2.encode(afterRotor1, rotor1.getPosition());
+        signal = rotor2.encode(signal, rotor1.getPosition(), rotor1.getRingSetting());
 
         // First pass through third rotor
-        char afterRotor3 = rotor3.encode(afterRotor2, rotor2.getPosition());
+        signal = rotor3.encode(signal, rotor2.getPosition(), rotor2.getRingSetting());
 
         // First pass through extra rotor
-        char afterExtraRotor = extraRotor.encode(afterRotor3, rotor3.getPosition());
+        signal = extraRotor.encode(signal, rotor3.getPosition(), rotor3.getRingSetting());
 
         // Pass through reflector (UKW)
-        char afterReflector = reflector.encode(afterExtraRotor, extraRotor.getPosition());
+        signal = reflector.encode(signal, extraRotor.getPosition(), extraRotor.getRingSetting());
 
         // Reverse pass through extra rotor
-        char afterExtraRotorReverse = extraRotor.encodeReverse(afterReflector, reflector.getPosition());
+        signal = extraRotor.encodeReverse(signal, reflector.getPosition(), reflector.getRingSetting());
 
         // Reverse pass through third rotor
-        char afterRotor3Reverse = rotor3.encodeReverse(afterExtraRotorReverse, extraRotor.getPosition());
+        signal = rotor3.encodeReverse(signal, extraRotor.getPosition(), extraRotor.getRingSetting());
 
         // Reverse pass through second rotor
-        char afterRotor2Reverse = rotor2.encodeReverse(afterRotor3Reverse, rotor3.getPosition());
+        signal = rotor2.encodeReverse(signal, rotor3.getPosition(), rotor3.getRingSetting());
 
         // Reverse pass through first rotor
-        char afterRotor1Reverse = rotor1.encodeReverse(afterRotor2Reverse, rotor2.getPosition());
+        signal = rotor1.encodeReverse(signal, rotor2.getPosition(), rotor2.getRingSetting());
 
         // Reverse pass through entry wheel (EKW)
-        char afterEntryRotorReverse = entryRotor.encodeReverse(afterRotor1Reverse, rotor1.getPosition());
+        signal = entryWheel.encodeReverse(signal, rotor1.getPosition(), rotor1.getRingSetting());
 
         // Reverse pass through plugboard
-        char afterPlugboardReverse = plugboard.encode(afterEntryRotorReverse);
+        signal = plugboard.encode(signal);
 
-        return afterPlugboardReverse;
+        return signal;
     }
 
     public String encode(String input) {
