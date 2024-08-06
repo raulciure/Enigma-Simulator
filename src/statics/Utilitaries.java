@@ -47,4 +47,12 @@ public final class Utilitaries {
 
         return getRealCharacter(deviatedCharacter, offset);
     }
+
+    public static boolean isStringOfLetters(String string) {
+        for (char c : string.toCharArray()) {
+            if(!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')))
+                return false;
+        }
+        return true;
+    }
 }

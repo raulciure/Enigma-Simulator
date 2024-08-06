@@ -24,14 +24,18 @@ public final class UserInteraction {
                     break;
                 }
 
-                if(Utilitaries.listContainsStringContent(plugboardMap, input)) {
-                    System.out.println("Letter(s) socket already used!");
+                if(Utilitaries.isStringOfLetters(input)) {
+                    input = input.toLowerCase();
+                    if (Utilitaries.listContainsStringContent(plugboardMap, input)) {
+                        System.out.println("Letter(s) socket already used!");
+                    } else {
+                        plugboardMap.add(input);
+                        counter++;
+                    }
                 }
                 else {
-                    plugboardMap.add(input);
-                    counter++;
+                    System.out.println("Input contains invalid characters!\n");
                 }
-
             }
             if(counter == 12) {
                 System.out.println("All wires used!\n");
@@ -51,12 +55,17 @@ public final class UserInteraction {
                     break;
                 }
 
-                if(Utilitaries.listContainsStringContent(plugboardMap, input)) {
-                    System.out.println("Buchstab(en) Sockel bereits belegt!");
+                if(Utilitaries.isStringOfLetters(input)) {
+                    input = input.toLowerCase();
+                    if (Utilitaries.listContainsStringContent(plugboardMap, input)) {
+                        System.out.println("Buchstab(en) Sockel bereits belegt!");
+                    } else {
+                        plugboardMap.add(input);
+                        counter++;
+                    }
                 }
                 else {
-                    plugboardMap.add(input);
-                    counter++;
+                    System.out.println("Die Eingabe enthält ungültige Zeichen!\n");
                 }
 
             }
@@ -86,7 +95,8 @@ public final class UserInteraction {
 
                             char ringSetting = scanner.nextLine().charAt(0);
 
-                            if(ringSetting >= 'A' && ringSetting <= 'Z') {
+                            if((ringSetting >= 'A' && ringSetting <= 'Z') || (ringSetting >= 'a' && ringSetting <= 'z')) {
+                                ringSetting = Character.toUpperCase(ringSetting);
                                 ringsPositions.add(rotorNumber - 1, ringSetting);
                                 break;
                             }
@@ -102,7 +112,7 @@ public final class UserInteraction {
 
                             char position = scanner.nextLine().charAt(0);
 
-                            if(position >= 'A' && position <= 'Z') {
+                            if((position >= 'A' && position <= 'Z') || (position >= 'a' && position <= 'z')) {
                                 rotorsPositions.add(rotorNumber - 1, position);
                                 break;
                             }
@@ -139,7 +149,8 @@ public final class UserInteraction {
 
                             char ringSetting = scanner.nextLine().charAt(0);
 
-                            if(ringSetting >= 'A' && ringSetting <= 'Z') {
+                            if((ringSetting >= 'A' && ringSetting <= 'Z') || (ringSetting >= 'a' && ringSetting <= 'z')) {
+                                ringSetting = Character.toUpperCase(ringSetting);
                                 ringsPositions.add(rotorNumber - 1, ringSetting);
                                 break;
                             }
@@ -155,7 +166,7 @@ public final class UserInteraction {
 
                             char position = scanner.nextLine().charAt(0);
 
-                            if(position >= 'A' && position <= 'Z') {
+                            if((position >= 'A' && position <= 'Z') || (position >= 'a' && position <= 'z')) {
                                 rotorsPositions.add(rotorNumber - 1, position);
                                 break;
                             }
@@ -216,7 +227,8 @@ public final class UserInteraction {
 
                             char ringSetting = scanner.nextLine().charAt(0);
 
-                            if(ringSetting >= 'A' && ringSetting <= 'Z') {
+                            if((ringSetting >= 'A' && ringSetting <= 'Z') || (ringSetting >= 'a' && ringSetting <= 'z')) {
+                                ringSetting = Character.toUpperCase(ringSetting);
                                 ringsPositions.add(rotorNumber - 1, ringSetting);
                                 break;
                             }
@@ -232,7 +244,7 @@ public final class UserInteraction {
 
                             char position = scanner.nextLine().charAt(0);
 
-                            if(position >= 'A' && position <= 'Z') {
+                            if((position >= 'A' && position <= 'Z') || (position >= 'a' && position <= 'z')) {
                                 rotorsPositions.add(rotorNumber - 1, position);
                                 break;
                             }
@@ -269,7 +281,8 @@ public final class UserInteraction {
 
                             char ringSetting = scanner.nextLine().charAt(0);
 
-                            if(ringSetting >= 'A' && ringSetting <= 'Z') {
+                            if((ringSetting >= 'A' && ringSetting <= 'Z') || (ringSetting >= 'a' && ringSetting <= 'z')) {
+                                ringSetting = Character.toUpperCase(ringSetting);
                                 ringsPositions.add(rotorNumber - 1, ringSetting);
                                 break;
                             }
@@ -285,7 +298,7 @@ public final class UserInteraction {
 
                             char position = scanner.nextLine().charAt(0);
 
-                            if(position >= 'A' && position <= 'Z') {
+                            if((position >= 'A' && position <= 'Z') || (position >= 'a' && position <= 'z')) {
                                 rotorsPositions.add(rotorNumber - 1, position);
                                 break;
                             }
@@ -339,16 +352,17 @@ public final class UserInteraction {
         List<String> availableReflectors = new ArrayList<>(Arrays.asList("b", "c"));
 
         // Print banner
-        System.out.println("+=======================================================================================+\n" +
-                "|  _____       _                         ____  _                 _       _              |\n" +
-                "| | ____|_ __ (_) __ _ _ __ ___   __ _  / ___|(_)_ __ ___  _   _| | __ _| |_ ___  _ __  |\n" +
-                "| |  _| | '_ \\| |/ _` | '_ ` _ \\ / _` | \\___ \\| | '_ ` _ \\| | | | |/ _` | __/ _ \\| '__| |\n" +
-                "| | |___| | | | | (_| | | | | | | (_| |  ___) | | | | | | | |_| | | (_| | || (_) | |    |\n" +
-                "| |_____|_| |_|_|\\__, |_| |_| |_|\\__,_| |____/|_|_| |_| |_|\\__,_|_|\\__,_|\\__\\___/|_|    |\n" +
-                "|                |___/                                                                  |\n" +
-                "+=======================================================================================+");
-        System.out.println("\n\n");
-        System.out.println("----Enigma M4 Simulator----\n\n");
+        System.out.println("""
+                +=======================================================================================+
+                |  _____       _                         ____  _                 _       _              |
+                | | ____|_ __ (_) __ _ _ __ ___   __ _  / ___|(_)_ __ ___  _   _| | __ _| |_ ___  _ __  |
+                | |  _| | '_ \\| |/ _` | '_ ` _ \\ / _` | \\___ \\| | '_ ` _ \\| | | | |/ _` | __/ _ \\| '__| |
+                | | |___| | | | | (_| | | | | | | (_| |  ___) | | | | | | | |_| | | (_| | || (_) | |    |
+                | |_____|_| |_|_|\\__, |_| |_| |_|\\__,_| |____/|_|_| |_| |_|\\__,_|_|\\__,_|\\__\\___/|_|    |
+                |                |___/                                                                  |
+                +=======================================================================================+""");
+        System.out.println();
+        System.out.println("----Enigma M4 Simulator----\n");
 
         Scanner scanner = new Scanner(System.in);
 
