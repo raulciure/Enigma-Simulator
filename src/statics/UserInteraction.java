@@ -10,7 +10,7 @@ import java.util.Scanner;
 public final class UserInteraction {
     private static String languageOption;
 
-    public static void plugboardSelection(String languageOption, Scanner scanner, List<String> plugboardMap) {
+    public static void plugboardSelection(Scanner scanner, List<String> plugboardMap) {
         if (languageOption.equals("1")) { // English
             System.out.println("Please enter pair of letters to connect to plugboard (eg. AB) one per line (maximum 12).");
             System.out.println("To end operation type '0'.");
@@ -75,7 +75,7 @@ public final class UserInteraction {
         }
     }
 
-    public static void rotorSelection(String languageOption, Scanner scanner, List<String> availableRotors, StringBuilder wheelTypeString, List<Character> rotorsPositions, List<Character> ringsPositions, int rotorNumber) {
+    public static void rotorSelection(Scanner scanner, List<String> availableRotors, StringBuilder wheelTypeString, List<Character> rotorsPositions, List<Character> ringsPositions, int rotorNumber) {
         if(languageOption.equals("1")) { // English
             if (rotorNumber >= 1 && rotorNumber <= 3) { // Normal rotors
                 while (true) {
@@ -87,45 +87,49 @@ public final class UserInteraction {
 
                     String selection = scanner.nextLine();
 
-                    if (availableRotors.contains(selection)) {
-                        // Get ring setting
-                        while(true) {
-                            System.out.println("\tSet ring position (A-Z)");
-                            System.out.print("\t" + "> ");
+                    if(Utilitaries.isStringOfLetters(selection)) {
+                        selection = selection.toUpperCase();
 
-                            char ringSetting = scanner.nextLine().charAt(0);
+                        if (availableRotors.contains(selection)) {
+                            // Get ring setting
+                            while (true) {
+                                System.out.println("\tSet ring position (A-Z)");
+                                System.out.print("\t" + "> ");
 
-                            if((ringSetting >= 'A' && ringSetting <= 'Z') || (ringSetting >= 'a' && ringSetting <= 'z')) {
-                                ringSetting = Character.toUpperCase(ringSetting);
-                                ringsPositions.add(rotorNumber - 1, ringSetting);
-                                break;
+                                char ringSetting = scanner.nextLine().charAt(0);
+
+                                if ((ringSetting >= 'A' && ringSetting <= 'Z') || (ringSetting >= 'a' && ringSetting <= 'z')) {
+                                    ringSetting = Character.toUpperCase(ringSetting);
+                                    ringsPositions.add(rotorNumber - 1, ringSetting);
+                                    break;
+                                } else {
+                                    System.out.println("\tOption invalid!");
+                                }
                             }
-                            else {
-                                System.out.println("\tOption invalid!");
+
+                            // Get rotor position
+                            while (true) {
+                                System.out.println("\tSet rotor position (A-Z)");
+                                System.out.print("\t" + "> ");
+
+                                char position = scanner.nextLine().charAt(0);
+
+                                if ((position >= 'A' && position <= 'Z') || (position >= 'a' && position <= 'z')) {
+                                    position = Character.toUpperCase(position);
+                                    rotorsPositions.add(rotorNumber - 1, position);
+                                    break;
+                                } else {
+                                    System.out.println("\tOption invalid!");
+                                }
                             }
+                            wheelTypeString.append(selection);
+                            availableRotors.remove(selection);
+                            break;
+                        } else {
+                            System.out.println("\tRotor not available or non-existent!");
                         }
-
-                        // Get rotor position
-                        while(true) {
-                            System.out.println("\tSet rotor position (A-Z)");
-                            System.out.print("\t" + "> ");
-
-                            char position = scanner.nextLine().charAt(0);
-
-                            if((position >= 'A' && position <= 'Z') || (position >= 'a' && position <= 'z')) {
-                                rotorsPositions.add(rotorNumber - 1, position);
-                                break;
-                            }
-                            else {
-                                System.out.println("\tOption invalid!");
-                            }
-                        }
-                        wheelTypeString.append(selection);
-                        availableRotors.remove(selection);
-                        break;
-                    }
-                    else {
-                        System.out.println("\tRotor not available or non-existent!");
+                    } else {
+                        System.out.println("\tOption invalid!");
                     }
 
                     System.out.println();
@@ -141,46 +145,51 @@ public final class UserInteraction {
 
                     String selection = scanner.nextLine();
 
-                    if (availableRotors.contains(selection)) {
-                        // Get ring setting
-                        while(true) {
-                            System.out.println("\tSet ring position (A-Z)");
-                            System.out.print("\t" + "> ");
+                    if(Utilitaries.isStringOfLetters(selection)) {
+                        selection = selection.toLowerCase();
 
-                            char ringSetting = scanner.nextLine().charAt(0);
+                        if (availableRotors.contains(selection)) {
+                            // Get ring setting
+                            while (true) {
+                                System.out.println("\tSet ring position (A-Z)");
+                                System.out.print("\t" + "> ");
 
-                            if((ringSetting >= 'A' && ringSetting <= 'Z') || (ringSetting >= 'a' && ringSetting <= 'z')) {
-                                ringSetting = Character.toUpperCase(ringSetting);
-                                ringsPositions.add(rotorNumber - 1, ringSetting);
-                                break;
+                                char ringSetting = scanner.nextLine().charAt(0);
+
+                                if ((ringSetting >= 'A' && ringSetting <= 'Z') || (ringSetting >= 'a' && ringSetting <= 'z')) {
+                                    ringSetting = Character.toUpperCase(ringSetting);
+                                    ringsPositions.add(rotorNumber - 1, ringSetting);
+                                    break;
+                                } else {
+                                    System.out.println("\tOption invalid!");
+                                }
                             }
-                            else {
-                                System.out.println("\tOption invalid!");
+
+                            // Get rotor position
+                            while (true) {
+                                System.out.println("\tSet rotor position (A-Z)");
+                                System.out.print("\t" + "> ");
+
+                                char position = scanner.nextLine().charAt(0);
+
+                                if ((position >= 'A' && position <= 'Z') || (position >= 'a' && position <= 'z')) {
+                                    position = Character.toUpperCase(position);
+                                    rotorsPositions.add(rotorNumber - 1, position);
+                                    break;
+                                } else {
+                                    System.out.println("\tOption invalid!");
+                                }
                             }
+                            wheelTypeString.append(selection);
+                            availableRotors.remove(selection);
+                            break;
+                        } else {
+                            System.out.println("\tRotor not available or non-existent!");
                         }
-
-                        // Get rotor position
-                        while(true) {
-                            System.out.println("\tSet rotor position (A-Z)");
-                            System.out.print("\t" + "> ");
-
-                            char position = scanner.nextLine().charAt(0);
-
-                            if((position >= 'A' && position <= 'Z') || (position >= 'a' && position <= 'z')) {
-                                rotorsPositions.add(rotorNumber - 1, position);
-                                break;
-                            }
-                            else {
-                                System.out.println("\tOption invalid!");
-                            }
-                        }
-                        wheelTypeString.append(selection);
-                        availableRotors.remove(selection);
-                        break;
+                    } else {
+                        System.out.println("\tOption invalid!");
                     }
-                    else {
-                        System.out.println("\tRotor not available or non-existent!");
-                    }
+
 
                     System.out.println();
                 }
@@ -195,13 +204,18 @@ public final class UserInteraction {
 
                     String selection = scanner.nextLine();
 
-                    if (availableRotors.contains(selection)) {
-                        wheelTypeString.append(selection);
-                        availableRotors.remove(selection);
-                        break;
-                    }
-                    else {
-                        System.out.println("\tReflector not available or non-existent!");
+                    if(Utilitaries.isStringOfLetters(selection)) {
+                        selection = selection.toLowerCase();
+
+                        if (availableRotors.contains(selection)) {
+                            wheelTypeString.append(selection);
+                            availableRotors.remove(selection);
+                            break;
+                        } else {
+                            System.out.println("\tReflector not available or non-existent!");
+                        }
+                    } else {
+                        System.out.println("\tOption invalid!");
                     }
 
                     System.out.println();
@@ -219,45 +233,49 @@ public final class UserInteraction {
 
                     String selection = scanner.nextLine();
 
-                    if (availableRotors.contains(selection)) {
-                        // Get ring setting
-                        while(true) {
-                            System.out.println("\tRingposition einstellen (A-Z)");
-                            System.out.print("\t" + "> ");
+                    if(Utilitaries.isStringOfLetters(selection)) {
+                        selection = selection.toUpperCase();
 
-                            char ringSetting = scanner.nextLine().charAt(0);
+                        if (availableRotors.contains(selection)) {
+                            // Get ring setting
+                            while (true) {
+                                System.out.println("\tRingposition einstellen (A-Z)");
+                                System.out.print("\t" + "> ");
 
-                            if((ringSetting >= 'A' && ringSetting <= 'Z') || (ringSetting >= 'a' && ringSetting <= 'z')) {
-                                ringSetting = Character.toUpperCase(ringSetting);
-                                ringsPositions.add(rotorNumber - 1, ringSetting);
-                                break;
+                                char ringSetting = scanner.nextLine().charAt(0);
+
+                                if ((ringSetting >= 'A' && ringSetting <= 'Z') || (ringSetting >= 'a' && ringSetting <= 'z')) {
+                                    ringSetting = Character.toUpperCase(ringSetting);
+                                    ringsPositions.add(rotorNumber - 1, ringSetting);
+                                    break;
+                                } else {
+                                    System.out.println("\tOption ungültig!");
+                                }
                             }
-                            else {
-                                System.out.println("\tOption ungültig!");
+
+                            // Get rotor position
+                            while (true) {
+                                System.out.println("\tRotorposition einstellen (A-Z)");
+                                System.out.print("\t" + "> ");
+
+                                char position = scanner.nextLine().charAt(0);
+
+                                if ((position >= 'A' && position <= 'Z') || (position >= 'a' && position <= 'z')) {
+                                    position = Character.toUpperCase(position);
+                                    rotorsPositions.add(rotorNumber - 1, position);
+                                    break;
+                                } else {
+                                    System.out.println("\tOption ungültig!");
+                                }
                             }
+                            wheelTypeString.append(selection);
+                            availableRotors.remove(selection);
+                            break;
+                        } else {
+                            System.out.println("\tRotor nicht vorhanden oder nicht lieferbar!");
                         }
-
-                        // Get rotor position
-                        while(true) {
-                            System.out.println("\tRotorposition einstellen (A-Z)");
-                            System.out.print("\t" + "> ");
-
-                            char position = scanner.nextLine().charAt(0);
-
-                            if((position >= 'A' && position <= 'Z') || (position >= 'a' && position <= 'z')) {
-                                rotorsPositions.add(rotorNumber - 1, position);
-                                break;
-                            }
-                            else {
-                                System.out.println("\tOption ungültig!");
-                            }
-                        }
-                        wheelTypeString.append(selection);
-                        availableRotors.remove(selection);
-                        break;
-                    }
-                    else {
-                        System.out.println("\tRotor nicht vorhanden oder nicht lieferbar!");
+                    } else {
+                        System.out.println("\tOption ungültig!");
                     }
 
                     System.out.println();
@@ -273,45 +291,49 @@ public final class UserInteraction {
 
                     String selection = scanner.nextLine();
 
-                    if (availableRotors.contains(selection)) {
-                        // Get ring setting
-                        while(true) {
-                            System.out.println("\tRingposition einstellen (A-Z)");
-                            System.out.print("\t" + "> ");
+                    if(Utilitaries.isStringOfLetters(selection)) {
+                        selection = selection.toLowerCase();
 
-                            char ringSetting = scanner.nextLine().charAt(0);
+                        if (availableRotors.contains(selection)) {
+                            // Get ring setting
+                            while (true) {
+                                System.out.println("\tRingposition einstellen (A-Z)");
+                                System.out.print("\t" + "> ");
 
-                            if((ringSetting >= 'A' && ringSetting <= 'Z') || (ringSetting >= 'a' && ringSetting <= 'z')) {
-                                ringSetting = Character.toUpperCase(ringSetting);
-                                ringsPositions.add(rotorNumber - 1, ringSetting);
-                                break;
+                                char ringSetting = scanner.nextLine().charAt(0);
+
+                                if ((ringSetting >= 'A' && ringSetting <= 'Z') || (ringSetting >= 'a' && ringSetting <= 'z')) {
+                                    ringSetting = Character.toUpperCase(ringSetting);
+                                    ringsPositions.add(rotorNumber - 1, ringSetting);
+                                    break;
+                                } else {
+                                    System.out.println("\tOption ungültig!");
+                                }
                             }
-                            else {
-                                System.out.println("\tOption ungültig!");
+
+                            // Get rotor position
+                            while (true) {
+                                System.out.println("\tRotorposition einstellen (A-Z)");
+                                System.out.print("\t" + "> ");
+
+                                char position = scanner.nextLine().charAt(0);
+
+                                if ((position >= 'A' && position <= 'Z') || (position >= 'a' && position <= 'z')) {
+                                    position = Character.toUpperCase(position);
+                                    rotorsPositions.add(rotorNumber - 1, position);
+                                    break;
+                                } else {
+                                    System.out.println("\tOption ungültig!");
+                                }
                             }
+                            wheelTypeString.append(selection);
+                            availableRotors.remove(selection);
+                            break;
+                        } else {
+                            System.out.println("\tRotor nicht vorhanden oder nicht lieferbar!");
                         }
-
-                        // Get rotor position
-                        while(true) {
-                            System.out.println("\tRotorposition einstellen (A-Z)");
-                            System.out.print("\t" + "> ");
-
-                            char position = scanner.nextLine().charAt(0);
-
-                            if((position >= 'A' && position <= 'Z') || (position >= 'a' && position <= 'z')) {
-                                rotorsPositions.add(rotorNumber - 1, position);
-                                break;
-                            }
-                            else {
-                                System.out.println("\tOption ungültig!");
-                            }
-                        }
-                        wheelTypeString.append(selection);
-                        availableRotors.remove(selection);
-                        break;
-                    }
-                    else {
-                        System.out.println("\tRotor nicht vorhanden oder nicht lieferbar!");
+                    } else {
+                        System.out.println("\tOption ungültig!");
                     }
 
                     System.out.println();
@@ -327,13 +349,18 @@ public final class UserInteraction {
 
                     String selection = scanner.nextLine();
 
-                    if (availableRotors.contains(selection)) {
-                        wheelTypeString.append(selection);
-                        availableRotors.remove(selection);
-                        break;
-                    }
-                    else {
-                        System.out.println("\tUmkehrwalze nicht vorhanden oder nicht lieferbar!");
+                    if(Utilitaries.isStringOfLetters(selection)) {
+                        selection = selection.toLowerCase();
+
+                        if (availableRotors.contains(selection)) {
+                            wheelTypeString.append(selection);
+                            availableRotors.remove(selection);
+                            break;
+                        } else {
+                            System.out.println("\tUmkehrwalze nicht vorhanden oder nicht lieferbar!");
+                        }
+                    } else {
+                        System.out.println("\tOption ungültig!");
                     }
 
                     System.out.println();
@@ -394,17 +421,21 @@ public final class UserInteraction {
         }
 
         // Rotor 1
-        rotorSelection(UserInteraction.languageOption, scanner, availableNormalRotors, rotor1Type, rotorsPositions, ringsPositions,1);
+        rotorSelection(scanner, availableNormalRotors, rotor1Type, rotorsPositions, ringsPositions,1);
         // Rotor 2
-        rotorSelection(UserInteraction.languageOption, scanner, availableNormalRotors, rotor2Type, rotorsPositions, ringsPositions,2);
+        rotorSelection(scanner, availableNormalRotors, rotor2Type, rotorsPositions, ringsPositions,2);
         // Rotor 3
-        rotorSelection(UserInteraction.languageOption, scanner, availableNormalRotors, rotor3Type, rotorsPositions, ringsPositions,3);
+        rotorSelection(scanner, availableNormalRotors, rotor3Type, rotorsPositions, ringsPositions,3);
         // Extra rotor
-        rotorSelection(UserInteraction.languageOption, scanner, availableExtraRotors, extraRotorType, rotorsPositions, ringsPositions,4);
+        rotorSelection(scanner, availableExtraRotors, extraRotorType, rotorsPositions, ringsPositions,4);
         // Reflector
-        rotorSelection(UserInteraction.languageOption, scanner, availableReflectors, reflectorType, null, null,5);
+        rotorSelection(scanner, availableReflectors, reflectorType, null, null,5);
         // Plugboard
-        plugboardSelection(UserInteraction.languageOption, scanner, plugboardStringMap);
+        plugboardSelection(scanner, plugboardStringMap);
+    }
+
+    public static String formatOutput(String output) {
+        return output.replaceAll("(.{4})(?=.)", "$0 ");
     }
 
     public static void displayEncoding(Machine machine) {
@@ -413,10 +444,15 @@ public final class UserInteraction {
         Scanner scanner = new Scanner(System.in);
         String input;
 
+        /*
+        * IMPLEMENT CONTINUOUS TYPING MODE HERE
+         */
+
         if(UserInteraction.languageOption.equals("1")) { // English
+            System.out.println("Type message to be encoded followed by Enter!");
+            System.out.println("To exit program, type '0'.");
+
             while(true) {
-                System.out.println("Type message to be encoded followed by Enter!");
-                System.out.println("To exit program, type '0'.");
                 System.out.print("> ");
 
                 input = scanner.nextLine();
@@ -425,14 +461,24 @@ public final class UserInteraction {
                     break;
                 }
 
-                String output = machine.encode(input);
-                System.out.println("\t[Output]: " + output);
+                // Format input
+                input = input.toUpperCase();
+                input = input.replaceAll("[^a-zA-Z]", ""); // Remove all characters except letters
+
+                // Validate input
+                if (Utilitaries.isStringOfLetters(input)) {
+                    String output = machine.encode(input);
+                    System.out.println("\t[Output]: " + formatOutput(output));
+                } else {
+                    System.out.println("\tInput contains invalid characters!");
+                }
             }
         }
         else if(UserInteraction.languageOption.equals("2")) { // German
+            System.out.println("Geben Sie die zu verschlüsselnde Nachricht ein, und drücken Sie anschließend die Eingabetaste!");
+            System.out.println("Um das Programm zu beenden, geben Sie „0“ ein.");
+
             while(true) {
-                System.out.println("Geben Sie die zu verschlüsselnde Nachricht ein, und drücken Sie anschließend die Eingabetaste!");
-                System.out.println("Um das Programm zu beenden, geben Sie „0“ ein.");
                 System.out.print("> ");
 
                 input = scanner.nextLine();
@@ -441,8 +487,17 @@ public final class UserInteraction {
                     break;
                 }
 
-                String output = machine.encode(input);
-                System.out.println("\t[Ausgabe]: " + output);
+                // Format input
+                input = input.toUpperCase();
+                input = input.replaceAll("[^a-zA-Z]", ""); // Remove all characters except letters
+
+                if (Utilitaries.isStringOfLetters(input)) {
+
+                    String output = machine.encode(input);
+                    System.out.println("\t[Ausgabe]: " + formatOutput(output));
+                } else {
+                    System.out.println("\tDie Eingabe enthält ungültige Zeichen!\n");
+                }
             }
         }
 
