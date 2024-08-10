@@ -2,7 +2,7 @@ package models;
 
 import java.util.List;
 import java.util.Map;
-import statics.Utilitaries;
+import statics.Utilities;
 
 public class RotorType {
     private Map<Character, Character> wiring;
@@ -20,6 +20,11 @@ public class RotorType {
         this.notches = null;
     }
 
+    /*
+     * Sets rotor configuration based on provided ID (String);
+     * For convenience and simplicity, the non-turning wheels of the machines (UKW, EKW) are treated as rotors,
+       with some attributes set to null;
+     */
     public RotorType setRotorTypeByID(String rotorID) {
         // Define rotors wiring
         final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -51,63 +56,63 @@ public class RotorType {
 
         switch (rotorID) {
             case "EKW":
-                wireMap = Utilitaries.createHashMap(alphabet, alphabet);
+                wireMap = Utilities.createHashMap(alphabet, alphabet);
                 return new RotorType(wireMap);
 
             case "I":
-                wireMap = Utilitaries.createHashMap(alphabet, rotor_I);
-                notches = Utilitaries.createArrayList(rotor_I_notches);
+                wireMap = Utilities.createHashMap(alphabet, rotor_I);
+                notches = Utilities.createArrayList(rotor_I_notches);
                 return new RotorType(wireMap, notches);
 
             case "II":
-                wireMap = Utilitaries.createHashMap(alphabet, rotor_II);
-                notches = Utilitaries.createArrayList(rotor_II_notches);
+                wireMap = Utilities.createHashMap(alphabet, rotor_II);
+                notches = Utilities.createArrayList(rotor_II_notches);
                 return new RotorType(wireMap, notches);
 
             case "III":
-                wireMap = Utilitaries.createHashMap(alphabet, rotor_III);
-                notches = Utilitaries.createArrayList(rotor_III_notches);
+                wireMap = Utilities.createHashMap(alphabet, rotor_III);
+                notches = Utilities.createArrayList(rotor_III_notches);
                 return new RotorType(wireMap, notches);
 
             case "IV":
-                wireMap = Utilitaries.createHashMap(alphabet, rotor_IV);
-                notches = Utilitaries.createArrayList(rotor_IV_notches);
+                wireMap = Utilities.createHashMap(alphabet, rotor_IV);
+                notches = Utilities.createArrayList(rotor_IV_notches);
                 return new RotorType(wireMap, notches);
 
             case "V":
-                wireMap = Utilitaries.createHashMap(alphabet, rotor_V);
-                notches = Utilitaries.createArrayList(rotor_V_notches);
+                wireMap = Utilities.createHashMap(alphabet, rotor_V);
+                notches = Utilities.createArrayList(rotor_V_notches);
                 return new RotorType(wireMap, notches);
 
             case "VI":
-                wireMap = Utilitaries.createHashMap(alphabet, rotor_VI);
-                notches = Utilitaries.createArrayList(rotor_VI_notches);
+                wireMap = Utilities.createHashMap(alphabet, rotor_VI);
+                notches = Utilities.createArrayList(rotor_VI_notches);
                 return new RotorType(wireMap, notches);
 
             case "VII":
-                wireMap = Utilitaries.createHashMap(alphabet, rotor_VII);
-                notches = Utilitaries.createArrayList(rotor_VII_notches);
+                wireMap = Utilities.createHashMap(alphabet, rotor_VII);
+                notches = Utilities.createArrayList(rotor_VII_notches);
                 return new RotorType(wireMap, notches);
 
             case "VIII":
-                wireMap = Utilitaries.createHashMap(alphabet, rotor_VIII);
-                notches = Utilitaries.createArrayList(rotor_VIII_notches);
+                wireMap = Utilities.createHashMap(alphabet, rotor_VIII);
+                notches = Utilities.createArrayList(rotor_VIII_notches);
                 return new RotorType(wireMap, notches);
 
             case "beta":
-                wireMap = Utilitaries.createHashMap(alphabet, extraRotor_beta);
+                wireMap = Utilities.createHashMap(alphabet, extraRotor_beta);
                 return new RotorType(wireMap);
 
             case "gamma":
-                wireMap = Utilitaries.createHashMap(alphabet, extraRotor_gamma);
+                wireMap = Utilities.createHashMap(alphabet, extraRotor_gamma);
                 return new RotorType(wireMap);
 
             case "b":
-                wireMap = Utilitaries.createHashMap(alphabet, reflector_b);
+                wireMap = Utilities.createHashMap(alphabet, reflector_b);
                 return new RotorType(wireMap);
 
             case "c":
-                wireMap = Utilitaries.createHashMap(alphabet, reflector_c);
+                wireMap = Utilities.createHashMap(alphabet, reflector_c);
                 return new RotorType(wireMap);
         }
         return null;

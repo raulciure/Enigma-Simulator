@@ -24,9 +24,9 @@ public final class UserInteraction {
                     break;
                 }
 
-                if(Utilitaries.isStringOfLetters(input)) {
+                if(Utilities.isStringOfLetters(input)) {
                     input = input.toLowerCase();
-                    if (Utilitaries.listContainsStringContent(plugboardMap, input)) {
+                    if (Utilities.listContainsStringContent(plugboardMap, input)) {
                         System.out.println("Letter(s) socket already used!");
                     } else {
                         plugboardMap.add(input);
@@ -55,9 +55,9 @@ public final class UserInteraction {
                     break;
                 }
 
-                if(Utilitaries.isStringOfLetters(input)) {
+                if(Utilities.isStringOfLetters(input)) {
                     input = input.toLowerCase();
-                    if (Utilitaries.listContainsStringContent(plugboardMap, input)) {
+                    if (Utilities.listContainsStringContent(plugboardMap, input)) {
                         System.out.println("Buchstab(en) Sockel bereits belegt!");
                     } else {
                         plugboardMap.add(input);
@@ -87,7 +87,7 @@ public final class UserInteraction {
 
                     String selection = scanner.nextLine();
 
-                    if(Utilitaries.isStringOfLetters(selection)) {
+                    if(Utilities.isStringOfLetters(selection)) {
                         selection = selection.toUpperCase();
 
                         if (availableRotors.contains(selection)) {
@@ -145,7 +145,7 @@ public final class UserInteraction {
 
                     String selection = scanner.nextLine();
 
-                    if(Utilitaries.isStringOfLetters(selection)) {
+                    if(Utilities.isStringOfLetters(selection)) {
                         selection = selection.toLowerCase();
 
                         if (availableRotors.contains(selection)) {
@@ -204,7 +204,7 @@ public final class UserInteraction {
 
                     String selection = scanner.nextLine();
 
-                    if(Utilitaries.isStringOfLetters(selection)) {
+                    if(Utilities.isStringOfLetters(selection)) {
                         selection = selection.toLowerCase();
 
                         if (availableRotors.contains(selection)) {
@@ -233,7 +233,7 @@ public final class UserInteraction {
 
                     String selection = scanner.nextLine();
 
-                    if(Utilitaries.isStringOfLetters(selection)) {
+                    if(Utilities.isStringOfLetters(selection)) {
                         selection = selection.toUpperCase();
 
                         if (availableRotors.contains(selection)) {
@@ -291,7 +291,7 @@ public final class UserInteraction {
 
                     String selection = scanner.nextLine();
 
-                    if(Utilitaries.isStringOfLetters(selection)) {
+                    if(Utilities.isStringOfLetters(selection)) {
                         selection = selection.toLowerCase();
 
                         if (availableRotors.contains(selection)) {
@@ -349,7 +349,7 @@ public final class UserInteraction {
 
                     String selection = scanner.nextLine();
 
-                    if(Utilitaries.isStringOfLetters(selection)) {
+                    if(Utilities.isStringOfLetters(selection)) {
                         selection = selection.toLowerCase();
 
                         if (availableRotors.contains(selection)) {
@@ -445,58 +445,93 @@ public final class UserInteraction {
         String input;
 
         /*
-        * IMPLEMENT CONTINUOUS TYPING MODE HERE
+        * CONTINUE IMPLEMENTATION OF CONTINUOUS TYPING MODE
          */
 
+        // Display mode selection
         if(UserInteraction.languageOption.equals("1")) { // English
-            System.out.println("Type message to be encoded followed by Enter!");
-            System.out.println("To exit program, type '0'.");
-
-            while(true) {
+            while (true) {
+                System.out.println("Select display mode");
+                System.out.println("[1] Normal mode");
+                System.out.println("[2] Continuous key type mode");
                 System.out.print("> ");
 
                 input = scanner.nextLine();
 
-                if (input.equals("0")) {
+                if (input.equals("1")) { // Normal mode
+                    System.out.println("\nType message to be encoded followed by Enter!");
+                    System.out.println("To exit program, type '0'.");
+
+                    while (true) {
+                        System.out.print("> ");
+
+                        input = scanner.nextLine();
+
+                        if (input.equals("0")) {
+                            break;
+                        }
+
+                        // Format input
+                        input = input.toUpperCase();
+                        input = input.replaceAll("[^a-zA-Z]", ""); // Remove all characters except letters
+
+                        // Validate input
+                        if (Utilities.isStringOfLetters(input)) {
+                            String output = machine.encode(input);
+                            System.out.println("\t[Output]: " + formatOutput(output));
+                        } else {
+                            System.out.println("\tInput contains invalid characters!");
+                        }
+                    }
                     break;
                 }
-
-                // Format input
-                input = input.toUpperCase();
-                input = input.replaceAll("[^a-zA-Z]", ""); // Remove all characters except letters
-
-                // Validate input
-                if (Utilitaries.isStringOfLetters(input)) {
-                    String output = machine.encode(input);
-                    System.out.println("\t[Output]: " + formatOutput(output));
+                else if (input.equals("2")) { // Continuous key type mode
+                    // TODO ...
+                    break;
                 } else {
-                    System.out.println("\tInput contains invalid characters!");
+                    System.out.println("Option invalid!\n");
                 }
             }
         }
-        else if(UserInteraction.languageOption.equals("2")) { // German
-            System.out.println("Geben Sie die zu verschlüsselnde Nachricht ein, und drücken Sie anschließend die Eingabetaste!");
-            System.out.println("Um das Programm zu beenden, geben Sie „0“ ein.");
-
-            while(true) {
+        else if (UserInteraction.languageOption.equals("2")) { // German
+            while (true) {
+                System.out.println("Anzeigemodus auswählen");
+                System.out.println("[1] Normaler Modus");
+                System.out.println("[2] Kontinuierlicher Schlüsseltypmodus");
                 System.out.print("> ");
 
                 input = scanner.nextLine();
 
-                if (input.equals("0")) {
+                if (input.equals("1")) { // Normal mode
+                    System.out.println("Geben Sie die zu verschlüsselnde Nachricht ein, und drücken Sie anschließend die Eingabetaste!");
+                    System.out.println("Um das Programm zu beenden, geben Sie „0“ ein.");
+
+                    while (true) {
+                        System.out.print("> ");
+
+                        input = scanner.nextLine();
+
+                        if (input.equals("0")) {
+                            break;
+                        }
+
+                        // Format input
+                        input = input.toUpperCase();
+                        input = input.replaceAll("[^a-zA-Z]", ""); // Remove all characters except letters
+
+                        if (Utilities.isStringOfLetters(input)) {
+
+                            String output = machine.encode(input);
+                            System.out.println("\t[Ausgabe]: " + formatOutput(output));
+                        } else {
+                            System.out.println("\tDie Eingabe enthält ungültige Zeichen!\n");
+                        }
+                    }
                     break;
                 }
-
-                // Format input
-                input = input.toUpperCase();
-                input = input.replaceAll("[^a-zA-Z]", ""); // Remove all characters except letters
-
-                if (Utilitaries.isStringOfLetters(input)) {
-
-                    String output = machine.encode(input);
-                    System.out.println("\t[Ausgabe]: " + formatOutput(output));
-                } else {
-                    System.out.println("\tDie Eingabe enthält ungültige Zeichen!\n");
+                else if (input.equals("2")) { // Continuous key type mode
+                    // TODO ...
+                    break;
                 }
             }
         }
