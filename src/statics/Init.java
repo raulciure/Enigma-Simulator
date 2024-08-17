@@ -25,7 +25,7 @@ public final class Init {
         return new Rotor(new RotorType().setRotorTypeByID(rotorID));
     }
 
-    // Load the user selected options & returns a models.Machine object with chosen configuration
+    // Load the user selected options & returns a Machine object with chosen configuration
     public static Machine loadData() {
         List<String> plugboardStringMap = new ArrayList<>();
         StringBuilder rotor1Type = new StringBuilder();

@@ -444,94 +444,55 @@ public final class UserInteraction {
         Scanner scanner = new Scanner(System.in);
         String input;
 
-        /*
-        * CONTINUE IMPLEMENTATION OF CONTINUOUS TYPING MODE
-         */
-
-        // Display mode selection
         if(UserInteraction.languageOption.equals("1")) { // English
+            System.out.println("\nType message to be encoded followed by Enter!");
+            System.out.println("To exit program, type '0'.");
+
             while (true) {
-                System.out.println("Select display mode");
-                System.out.println("[1] Normal mode");
-                System.out.println("[2] Continuous key type mode");
                 System.out.print("> ");
 
                 input = scanner.nextLine();
 
-                if (input.equals("1")) { // Normal mode
-                    System.out.println("\nType message to be encoded followed by Enter!");
-                    System.out.println("To exit program, type '0'.");
-
-                    while (true) {
-                        System.out.print("> ");
-
-                        input = scanner.nextLine();
-
-                        if (input.equals("0")) {
-                            break;
-                        }
-
-                        // Format input
-                        input = input.toUpperCase();
-                        input = input.replaceAll("[^a-zA-Z]", ""); // Remove all characters except letters
-
-                        // Validate input
-                        if (Utilities.isStringOfLetters(input)) {
-                            String output = machine.encode(input);
-                            System.out.println("\t[Output]: " + formatOutput(output));
-                        } else {
-                            System.out.println("\tInput contains invalid characters!");
-                        }
-                    }
+                if (input.equals("0")) {
                     break;
                 }
-                else if (input.equals("2")) { // Continuous key type mode
-                    // TODO ...
-                    break;
+
+                // Format input
+                input = input.toUpperCase();
+                input = input.replaceAll("[^a-zA-Z]", ""); // Remove all characters except letters
+
+                // Validate input & encode
+                if (Utilities.isStringOfLetters(input)) {
+                    String output = machine.encode(input);
+                    System.out.println("\t[Output]: " + formatOutput(output));
                 } else {
-                    System.out.println("Option invalid!\n");
+                    System.out.println("\tInput contains invalid characters!");
                 }
             }
         }
         else if (UserInteraction.languageOption.equals("2")) { // German
+            System.out.println("\nGeben Sie die zu verschlüsselnde Nachricht ein, und drücken Sie anschließend die Eingabetaste!");
+            System.out.println("Um das Programm zu beenden, geben Sie „0“ ein.");
+
             while (true) {
-                System.out.println("Anzeigemodus auswählen");
-                System.out.println("[1] Normaler Modus");
-                System.out.println("[2] Kontinuierlicher Schlüsseltypmodus");
                 System.out.print("> ");
 
                 input = scanner.nextLine();
 
-                if (input.equals("1")) { // Normal mode
-                    System.out.println("Geben Sie die zu verschlüsselnde Nachricht ein, und drücken Sie anschließend die Eingabetaste!");
-                    System.out.println("Um das Programm zu beenden, geben Sie „0“ ein.");
-
-                    while (true) {
-                        System.out.print("> ");
-
-                        input = scanner.nextLine();
-
-                        if (input.equals("0")) {
-                            break;
-                        }
-
-                        // Format input
-                        input = input.toUpperCase();
-                        input = input.replaceAll("[^a-zA-Z]", ""); // Remove all characters except letters
-
-                        if (Utilities.isStringOfLetters(input)) {
-
-                            String output = machine.encode(input);
-                            System.out.println("\t[Ausgabe]: " + formatOutput(output));
-                        } else {
-                            System.out.println("\tDie Eingabe enthält ungültige Zeichen!\n");
-                        }
-                    }
+                if (input.equals("0")) {
                     break;
                 }
-                else if (input.equals("2")) { // Continuous key type mode
-                    // TODO ...
-                    break;
+
+                // Format input
+                input = input.toUpperCase();
+                input = input.replaceAll("[^a-zA-Z]", ""); // Remove all characters except letters
+
+                if (Utilities.isStringOfLetters(input)) {
+
+                    String output = machine.encode(input);
+                    System.out.println("\t[Ausgabe]: " + formatOutput(output));
+                } else {
+                    System.out.println("\tDie Eingabe enthält ungültige Zeichen!\n");
                 }
             }
         }

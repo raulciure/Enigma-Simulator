@@ -20,6 +20,30 @@ public class Machine {
         this.reflector = reflector;
     }
 
+    public Plugboard getPlugboard() {
+        return plugboard;
+    }
+
+    public Rotor getRotor1() {
+        return rotor1;
+    }
+
+    public Rotor getRotor2() {
+        return rotor2;
+    }
+
+    public Rotor getRotor3() {
+        return rotor3;
+    }
+
+    public Rotor getExtraRotor() {
+        return extraRotor;
+    }
+
+    public Rotor getReflector() {
+        return reflector;
+    }
+
     public void setPlugboard(Plugboard plugboard) {
         this.plugboard = plugboard;
     }
