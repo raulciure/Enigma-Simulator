@@ -8,8 +8,6 @@ public class RotorType {
     private Map<Character, Character> wiring;
     private List<Character> notches;
 
-    public RotorType() {}
-
     public RotorType(Map<Character, Character> wiring, List<Character> notches) {
         this.wiring = wiring;
         this.notches = notches;
@@ -33,7 +31,7 @@ public class RotorType {
      * For convenience and simplicity, the non-turning wheels of the machines (UKW, EKW) are treated as rotors,
        with some attributes set to null;
      */
-    public RotorType setRotorTypeByID(String rotorID) {
+    public static RotorType setRotorTypeByID(String rotorID) {
         // Define rotors wiring
         final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         final String rotor_I = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";

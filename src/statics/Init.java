@@ -21,8 +21,8 @@ public final class Init {
 
     public static Rotor configureRotor(String rotorID, Character position, Character ringSetting) {
         if(position != null)
-            return new Rotor(new RotorType().setRotorTypeByID(rotorID), position, ringSetting);
-        return new Rotor(new RotorType().setRotorTypeByID(rotorID));
+            return new Rotor(RotorType.setRotorTypeByID(rotorID), position, ringSetting);
+        return new Rotor(RotorType.setRotorTypeByID(rotorID));
     }
 
     // Load the user selected options & returns a Machine object with chosen configuration
