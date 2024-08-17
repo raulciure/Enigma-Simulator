@@ -20,6 +20,14 @@ public class RotorType {
         this.notches = null;
     }
 
+    public Map<Character, Character> getWiring() {
+        return wiring;
+    }
+
+    public List<Character> getNotches() {
+        return notches;
+    }
+
     /*
      * Sets rotor configuration based on provided ID (String);
      * For convenience and simplicity, the non-turning wheels of the machines (UKW, EKW) are treated as rotors,
@@ -116,13 +124,5 @@ public class RotorType {
                 return new RotorType(wireMap);
         }
         return null;
-    }
-
-    public Map<Character, Character> getWiring() {
-        return wiring;
-    }
-
-    public List<Character> getNotches() {
-        return notches;
     }
 }

@@ -8,7 +8,7 @@ import java.util.Map;
 public class Rotor {
      private RotorType rotorType;
      private char position;
-    private char ringSetting;
+     private char ringSetting;
 
     public Rotor(RotorType rotorType, Character position, Character ringSetting) {
         this.rotorType = rotorType;
@@ -82,8 +82,8 @@ public class Rotor {
        * Because with the deviation the input character can exceed 'Z', an overflow circular logic needed to be implemented.
      */
     public char encode(char character, char rightRotorPosition, char rightRotorRingSetting) {
-        char realPosition = Utilities.getRealCharacter(this.position, this.ringSetting);
-        char realRightRotorPosition = Utilities.getRealCharacter(rightRotorPosition, rightRotorRingSetting);
+        char realPosition = Rotor.getRealCharacter(this.position, this.ringSetting);
+        char realRightRotorPosition = Rotor.getRealCharacter(rightRotorPosition, rightRotorRingSetting);
 
         int inputDeviation = realPosition - realRightRotorPosition;
 
@@ -102,8 +102,8 @@ public class Rotor {
     }
 
     public char encodeReverse(char character, char leftRotorPosition, char leftRotorRingSetting) {
-        char realPosition = Utilities.getRealCharacter(this.position, this.ringSetting);
-        char realLeftRotorPosition = Utilities.getRealCharacter(leftRotorPosition, leftRotorRingSetting);
+        char realPosition = Rotor.getRealCharacter(this.position, this.ringSetting);
+        char realLeftRotorPosition = Rotor.getRealCharacter(leftRotorPosition, leftRotorRingSetting);
 
         int inputDeviation = realPosition - realLeftRotorPosition;
 
@@ -124,5 +124,32 @@ public class Rotor {
             }
         }
         return inputCharacter;
+    }
+
+    /**
+     * Recieves a character and an offset and returns the character that "offsets" into the given deviatedCharacter.
+     *
+     * @param deviatedCharacter the character that is deviated with the given <code>offset</code>;
+     * @param offset the offset from the real character of the current character;
+     * @return the real character.
+     */
+    public static char getRealCharacter(char deviatedCharacter, int offset) {
+        if(deviatedCharacter - offset < 'A') {
+            return (char) (deviatedCharacter - offset + 'Z' - 'A' + 1);
+        }
+        return (char) (deviatedCharacter - offset);
+    }
+
+    /**
+     * Recieves a character and an offset and returns the character that "offsets" into the given deviatedCharacter.
+     *
+     * @param deviatedCharacter the character that is deviated with the given <code>offset</code>;
+     * @param charOffset the character offset (e.g. rotor ring setting) from the real character of the current character;
+     * @return the real character.
+     */
+    public static char getRealCharacter(char deviatedCharacter, char charOffset) {
+        int offset = charOffset - 'A';
+
+        return getRealCharacter(deviatedCharacter, offset);
     }
 }
