@@ -1,14 +1,12 @@
 package models;
 
-import statics.Utilities;
-
 import java.util.List;
 import java.util.Map;
 
 public class Rotor {
-     private RotorType rotorType;
+     private final RotorType rotorType;
      private char position;
-     private char ringSetting;
+     private final char ringSetting;
 
     public Rotor(RotorType rotorType, Character position, Character ringSetting) {
         this.rotorType = rotorType;
@@ -36,18 +34,6 @@ public class Rotor {
 
     public char getRingSetting() {
         return ringSetting;
-    }
-
-    public void setRotorType(RotorType rotorType) {
-        this.rotorType = rotorType;
-    }
-
-    public void setPosition(char position) {
-        this.position = position;
-    }
-
-    public void setRingSetting(char ringSetting) {
-        this.ringSetting = ringSetting;
     }
 
     public void step() {

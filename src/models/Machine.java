@@ -1,13 +1,13 @@
 package models;
 
 public class Machine {
-    private Plugboard plugboard;
-    private Rotor entryWheel;
-    private Rotor rotor1;
-    private Rotor rotor2;
-    private Rotor rotor3;
-    private Rotor extraRotor;
-    private Rotor reflector;
+    private final Plugboard plugboard;
+    private final Rotor entryWheel;
+    private final Rotor rotor1;
+    private final Rotor rotor2;
+    private final Rotor rotor3;
+    private final Rotor extraRotor;
+    private final Rotor reflector;
 
     public Machine(Plugboard plugboard, Rotor entryWheel, Rotor rotor1, Rotor rotor2,
                    Rotor rotor3, Rotor extraRotor, Rotor reflector) {
@@ -17,58 +17,6 @@ public class Machine {
         this.rotor2 = rotor2;
         this.rotor3 = rotor3;
         this.extraRotor = extraRotor;
-        this.reflector = reflector;
-    }
-
-    public Plugboard getPlugboard() {
-        return plugboard;
-    }
-
-    public Rotor getRotor1() {
-        return rotor1;
-    }
-
-    public Rotor getRotor2() {
-        return rotor2;
-    }
-
-    public Rotor getRotor3() {
-        return rotor3;
-    }
-
-    public Rotor getExtraRotor() {
-        return extraRotor;
-    }
-
-    public Rotor getReflector() {
-        return reflector;
-    }
-
-    public void setPlugboard(Plugboard plugboard) {
-        this.plugboard = plugboard;
-    }
-
-    public void setEntryWheel(Rotor entryWheel) {
-        this.entryWheel = entryWheel;
-    }
-
-    public void setRotor1(Rotor rotor1) {
-        this.rotor1 = rotor1;
-    }
-
-    public void setRotor2(Rotor rotor2) {
-        this.rotor2 = rotor2;
-    }
-
-    public void setRotor3(Rotor rotor3) {
-        this.rotor3 = rotor3;
-    }
-
-    public void setExtraRotor(Rotor extraRotor) {
-        this.extraRotor = extraRotor;
-    }
-
-    public void setReflector(Rotor reflector) {
         this.reflector = reflector;
     }
 

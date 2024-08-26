@@ -472,7 +472,7 @@ public final class UserInteraction {
         }
         else if (UserInteraction.languageOption.equals("2")) { // German
             System.out.println("\nGeben Sie die zu verschlüsselnde Nachricht ein, und drücken Sie anschließend die Eingabetaste!");
-            System.out.println("Um das Programm zu beenden, geben Sie „0“ ein.");
+            System.out.println("Um das Programm zu beenden, geben Sie '0' ein.");
 
             while (true) {
                 System.out.print("> ");
